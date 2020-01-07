@@ -59,10 +59,10 @@ public class PasteImageFromClipboard extends AnAction {
         if (bufferedImage == null) {
             return;
         }
-        String qiniuImgUrlPrefix = PropertiesComponent.getInstance().getValue("qiniu_img_url_prefix");
-        String qiniuBucketName = PropertiesComponent.getInstance().getValue("qiniu_bucket_name");
-        String qiniuAccessKey = PropertiesComponent.getInstance().getValue("qiniu_access_key");
-        String qiniuSecretKey = PropertiesComponent.getInstance().getValue("qiniu_secret_key");
+        String qiniuImgUrlPrefix = PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_IMG_URL_PREFIX);
+        String qiniuBucketName = PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_BUCKET_NAME);
+        String qiniuAccessKey = PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_ACCESS_KEY);
+        String qiniuSecretKey = PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_SECRET_KEY);
 
         if (isEmpty(qiniuImgUrlPrefix) ) {
             throw new RuntimeException("请前往设置中填写七牛相关信息: URL_PREFIX");

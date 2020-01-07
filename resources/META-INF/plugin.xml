@@ -42,7 +42,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable instance="com.leyongleshi.idea.plugin.pasteimageintomarkdown.MySetting"/>
+        <applicationConfigurable instance="com.leyongleshi.idea.plugin.pasteimageintomarkdown.Setting"/>
     </extensions>
 
 </idea-plugin>
