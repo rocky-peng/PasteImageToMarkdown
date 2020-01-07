@@ -1,0 +1,48 @@
+<idea-plugin>
+    <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
+    <name>PasteImageIntoMarkdown</name>
+    <version>1.0</version>
+    <vendor email="rocky.peng@qq.com" url="http://www.leyongleshi.com">rocky.peng</vendor>
+
+    <description><![CDATA[
+    把粘贴的图片上传到七牛云，然后把图片链接以markdown的格式插入到编辑器中。
+    安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。
+    如若使用出现问题，欢迎发送邮件到rocky.peng@qq.com或者前往github提交issue。
+    github:
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products-->
+    <depends>com.intellij.modules.lang</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <editorActionHandler action="EditorPaste"
+                             implementationClass="com.leyongleshi.idea.plugin.pasteimageintomarkdown.PasteImageHandler"
+                             order="first"/>
+    </extensions>
+
+    <actions>
+        <action id="PastePic" class="com.leyongleshi.idea.plugin.pasteimageintomarkdown.PasteImageFromClipboard"
+                text="PastePic"
+                description="Paste an image from clipboard at the current cursor position">
+            <add-to-group group-id="EditMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift meta V"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable instance="com.leyongleshi.idea.plugin.pasteimageintomarkdown.MySetting"/>
+    </extensions>
+
+</idea-plugin>
