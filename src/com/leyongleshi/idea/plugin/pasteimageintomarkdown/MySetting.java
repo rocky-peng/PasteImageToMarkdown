@@ -48,10 +48,10 @@ public class MySetting implements Configurable {
 
     @Override
     public void reset() {
-        qiniuImgUrlPrefix.setText(null);
-        qiniuAccesskey.setText(null);
-        qiniuSecreteKey.setText(null);
-        qiniuBucketName.setText(null);
+        qiniuImgUrlPrefix.setText(PropertiesComponent.getInstance().getValue("qiniu_img_url_prefix"));
+        qiniuAccesskey.setText(PropertiesComponent.getInstance().getValue("qiniu_access_key"));
+        qiniuSecreteKey.setText(PropertiesComponent.getInstance().getValue("qiniu_secret_key"));
+        qiniuBucketName.setText(PropertiesComponent.getInstance().getValue("qiniu_bucket_name"));
     }
 
     @Override
