@@ -1,8 +1,8 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.1</version>
-    <vendor email="rocky.peng@qq.com" url="http://www.leyongleshi.com">rocky.peng</vendor>
+    <version>1.2</version>
+    <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
     把粘贴的图片上传到七牛云，然后把图片链接以markdown的格式插入到编辑器中。
