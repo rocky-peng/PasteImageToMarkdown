@@ -115,7 +115,7 @@ public class QiniuHelper {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        return upload(result.toByteArray(),fileName);
+        return upload(result.toByteArray(), fileName);
     }
 
     public String upload(InputStream fileIs, String fileName) {
