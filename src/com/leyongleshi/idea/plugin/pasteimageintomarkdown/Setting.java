@@ -21,6 +21,7 @@ public class Setting implements Configurable {
     private JTextField qiniuBucketNameField;
     private JTabbedPane saveImgPanel;
     private JLabel imgSaveLocationLabel;
+    private JTextPane imagesFilesAreDepositedTextPane;
     private String imageSaveLocation = "LOCAL";
 
     public Setting() {
