@@ -19,6 +19,9 @@
 ![](http://img.ljd.leyongleshi.com/markdown/118192020648670.png)
 
 ## Change Nodes
+### v1.5
+1. 修复粘贴磁盘gif图片的bug
+
 ### v1.4
 1. 支持一次性粘贴多张磁盘图片
 

@@ -14,20 +14,22 @@ import com.intellij.openapi.vcs.AbstractVcs;
 import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.SystemIndependent;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
 
 public class PasteImageFromClipboard extends AnAction {
 
-    private Map<BufferedImage, String> imagesFromClipboard;
+    private Map<Object, String> imagesFromClipboard;
 
-    public PasteImageFromClipboard(Map<BufferedImage, String> imagesFromClipboard) {
+    public PasteImageFromClipboard(Map<Object, String> imagesFromClipboard) {
         this.imagesFromClipboard = imagesFromClipboard;
     }
 
@@ -64,12 +66,24 @@ public class PasteImageFromClipboard extends AnAction {
                 }
             }
 
-            for (Map.Entry<BufferedImage, String> entry : imagesFromClipboard.entrySet()) {
-                BufferedImage bufferedImage = entry.getKey();
+            for (Map.Entry<Object, String> entry : imagesFromClipboard.entrySet()) {
+                Object key = entry.getKey();
                 String suffix = entry.getValue();
-
                 File imgFile = new File(imageSaveDir, System.nanoTime() + suffix);
-                ImageUtils.saveImage(bufferedImage, imgFile);
+
+                if(key instanceof BufferedImage){
+                    BufferedImage bufferedImage = (BufferedImage) key;
+                    ImageUtils.saveImage(bufferedImage, imgFile);
+                }else if(key instanceof File){
+                    File file = (File) key;
+                    try {
+                        FileUtils.copyFile(file,imgFile);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }else {
+                    throw new RuntimeException("something wrong");
+                }
 
                 //refresh
                 VirtualFile fileByPath = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(imgFile);
@@ -118,10 +132,19 @@ public class PasteImageFromClipboard extends AnAction {
             }
             QiniuHelper qiniuHelper = new QiniuHelper(qiniuAccessKey, qiniuSecretKey, qiniuBucketName, qiniuImgUrlPrefix, 3);
 
-            for (Map.Entry<BufferedImage, String> entry : imagesFromClipboard.entrySet()) {
-                BufferedImage bufferedImage = entry.getKey();
+            for (Map.Entry<Object, String> entry : imagesFromClipboard.entrySet()) {
+                Object key = entry.getKey();
                 String suffix = entry.getValue();
-                String imgUrl = qiniuHelper.upload(bufferedImage, "markdown/" + System.nanoTime() + suffix);
+                String imgUrl;
+                if(key instanceof BufferedImage){
+                    BufferedImage bufferedImage = (BufferedImage) key;
+                    imgUrl = qiniuHelper.upload(bufferedImage, "markdown/" + System.nanoTime() + suffix);
+                }else if(key instanceof File){
+                    File file = (File) key;
+                    imgUrl = qiniuHelper.upload(file, "markdown/" + System.nanoTime() + suffix);
+                }else {
+                    throw new RuntimeException("something wrong");
+                }
                 insertImageElement(ed, imgUrl);
             }
         }

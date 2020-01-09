@@ -14,14 +14,13 @@ import java.util.Map;
 
 public class ImageUtils {
 
-    public static Map<BufferedImage, String> getImageFromClipboard() {
+    public static Map<Object, String> getImageFromClipboard() {
         Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
         if (transferable == null) {
             return null;
         }
 
-
-        Map<BufferedImage, String> result = new LinkedHashMap<>();
+        Map<Object, String> result = new LinkedHashMap<>();
 
         //如果复制的是文件
         if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -68,7 +67,7 @@ public class ImageUtils {
                     continue;
                 }
 
-                result.put(bufferedImage,suffix);
+                result.put(file,suffix);
             }
 
             return result;

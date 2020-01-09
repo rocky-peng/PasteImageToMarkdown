@@ -77,7 +77,7 @@ public class PasteImageHandler extends EditorActionHandler implements EditorText
             if (virtualFile != null) {
                 FileType fileType = virtualFile.getFileType();
                 if ("Markdown".equals(fileType.getName())) {
-                    Map<BufferedImage,String> imagesFromClipboard = ImageUtils.getImageFromClipboard();
+                    Map<Object,String> imagesFromClipboard = ImageUtils.getImageFromClipboard();
                     if (imagesFromClipboard != null && imagesFromClipboard.size() > 0) {
                         assert caret == null : "Invocation of 'paste' operation for specific caret is not supported";
                         PasteImageFromClipboard action = new PasteImageFromClipboard(imagesFromClipboard);
