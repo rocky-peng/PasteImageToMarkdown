@@ -82,7 +82,7 @@ public class PasteImageFromClipboard extends AnAction {
                 usedVcs.getCheckinEnvironment().scheduleUnversionedFilesForAddition(Collections.singletonList(fileByPath));
             }
 
-            //calc the relative path between current editor file to imgFile
+            //calc the relative path between current editor file and imgFile
             Document currentDoc = FileEditorManager.getInstance(ed.getProject()).getSelectedTextEditor().getDocument();
             VirtualFile currentFile = FileDocumentManager.getInstance().getFile(currentDoc);
             File curDocument = new File(currentFile.getPath());
