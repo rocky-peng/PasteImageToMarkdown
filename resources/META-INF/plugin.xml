@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.2</version>
+    <version>1.3</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
@@ -17,7 +17,7 @@
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
     github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
 
-    本地存储：<br>
+    本地存储：(填写的路径是相对于工程目录)<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
 
     七牛云存储：<br>
