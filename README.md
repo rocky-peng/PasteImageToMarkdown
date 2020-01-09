@@ -18,8 +18,12 @@
 ## 七牛云存储
 ![](http://img.ljd.leyongleshi.com/markdown/118192020648670.png)
 
-WX20200109-150237@2x.png
+## Change Nodes
+### v1.4
+1. 支持一次性粘贴多张磁盘图片
 
-![](http://img.ljd.leyongleshi.com/markdown/141711307358804.png)
+### v1.3
+1. 支持图片保存到工程中
 
-
+### v1.2
+1. 支持把图片保存到七牛云
