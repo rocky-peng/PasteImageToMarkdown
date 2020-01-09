@@ -21,7 +21,7 @@ public class Setting implements Configurable {
     private JTextField qiniuBucketNameField;
     private JTabbedPane saveImgPanel;
     private JLabel imgSaveLocationLabel;
-    private JTextPane imagesFilesAreDepositedTextPane;
+    private JTextField localRelativeDirPathField;
     private String imageSaveLocation = "LOCAL";
 
     public Setting() {
@@ -47,7 +47,7 @@ public class Setting implements Configurable {
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override
     public String getDisplayName() {
-        return "PasteImageToMarkdown";
+        return "PasteImagesIntoMarkdown";
     }
 
     @Nullable
@@ -64,18 +64,18 @@ public class Setting implements Configurable {
     @Override
     public void apply() throws ConfigurationException {
 
-        PropertiesComponent.getInstance().setValue(CdnConstants.IMAGE_SAVE_LOCATION, imageSaveLocation);
+        PropertiesComponent.getInstance().setValue(Constants.IMAGE_SAVE_LOCATION, imageSaveLocation);
+
+        //local
+        PropertiesComponent.getInstance().setValue(Constants.LOCAL_RELATIVE_DIR_PATH, localRelativeDirPathField.getText());
 
         //qiniu
-        PropertiesComponent.getInstance().setValue(CdnConstants.QINIU_ACCESS_KEY, qiniuAccessKeyField.getText());
-        PropertiesComponent.getInstance().setValue(CdnConstants.QINIU_SECRET_KEY, qiniuSecretKeyField.getText());
-        PropertiesComponent.getInstance().setValue(CdnConstants.QINIU_IMG_URL_PREFIX, qiniuImgUrlPrefixField.getText());
-        PropertiesComponent.getInstance().setValue(CdnConstants.QINIU_BUCKET_NAME, qiniuBucketNameField.getText());
+        PropertiesComponent.getInstance().setValue(Constants.QINIU_ACCESS_KEY, qiniuAccessKeyField.getText());
+        PropertiesComponent.getInstance().setValue(Constants.QINIU_SECRET_KEY, qiniuSecretKeyField.getText());
+        PropertiesComponent.getInstance().setValue(Constants.QINIU_IMG_URL_PREFIX, qiniuImgUrlPrefixField.getText());
+        PropertiesComponent.getInstance().setValue(Constants.QINIU_BUCKET_NAME, qiniuBucketNameField.getText());
 
         //aliyun
-
-
-
         if("ALIYUN".equalsIgnoreCase(imageSaveLocation)){
             throw new ConfigurationException("NOT SUPPORT ALIYUN(阿里云) NOW!");
         }
@@ -84,7 +84,7 @@ public class Setting implements Configurable {
 
     @Override
     public void reset() {
-        String imageSaveLocationValue = PropertiesComponent.getInstance().getValue(CdnConstants.IMAGE_SAVE_LOCATION);
+        String imageSaveLocationValue = PropertiesComponent.getInstance().getValue(Constants.IMAGE_SAVE_LOCATION);
         if (imageSaveLocationValue == null || imageSaveLocationValue.trim().length() == 0) {
             imageSaveLocation = "LOCAL";
         } else {
@@ -102,9 +102,15 @@ public class Setting implements Configurable {
             onImageSaveLocationChanged(2);
         }
 
-        qiniuImgUrlPrefixField.setText(PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_IMG_URL_PREFIX));
-        qiniuAccessKeyField.setText(PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_ACCESS_KEY));
-        qiniuSecretKeyField.setText(PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_SECRET_KEY));
-        qiniuBucketNameField.setText(PropertiesComponent.getInstance().getValue(CdnConstants.QINIU_BUCKET_NAME));
+        String localRelativeDirPath = PropertiesComponent.getInstance().getValue(Constants.LOCAL_RELATIVE_DIR_PATH);
+        if(localRelativeDirPath == null || localRelativeDirPath.trim().length() == 0){
+            localRelativeDirPath = "images";
+        }
+        localRelativeDirPathField.setText(localRelativeDirPath);
+
+        qiniuImgUrlPrefixField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_IMG_URL_PREFIX));
+        qiniuAccessKeyField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_ACCESS_KEY));
+        qiniuSecretKeyField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_SECRET_KEY));
+        qiniuBucketNameField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_BUCKET_NAME));
     }
 }

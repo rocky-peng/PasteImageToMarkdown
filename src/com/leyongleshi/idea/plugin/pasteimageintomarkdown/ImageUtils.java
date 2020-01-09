@@ -1,9 +1,12 @@
 package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class ImageUtils {
@@ -36,5 +39,15 @@ public class ImageUtils {
         g2.drawImage(src, 0, 0, null);
         g2.dispose();
         return dest;
+    }
+
+    public static void saveImage(BufferedImage image, File target) {
+        try {
+            FileOutputStream result = new FileOutputStream(target);
+            ImageIO.write(image, "PNG", result);
+            result.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 }
