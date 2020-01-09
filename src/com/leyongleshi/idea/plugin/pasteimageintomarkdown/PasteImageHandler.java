@@ -45,6 +45,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.datatransfer.Transferable;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.Map;
 
 public class PasteImageHandler extends EditorActionHandler implements EditorTextInsertHandler {
     private final EditorActionHandler myOriginalHandler;
@@ -74,10 +77,10 @@ public class PasteImageHandler extends EditorActionHandler implements EditorText
             if (virtualFile != null) {
                 FileType fileType = virtualFile.getFileType();
                 if ("Markdown".equals(fileType.getName())) {
-                    Image imageFromClipboard = ImageUtils.getImageFromClipboard();
-                    if (imageFromClipboard != null) {
+                    Map<BufferedImage,String> imagesFromClipboard = ImageUtils.getImageFromClipboard();
+                    if (imagesFromClipboard != null && imagesFromClipboard.size() > 0) {
                         assert caret == null : "Invocation of 'paste' operation for specific caret is not supported";
-                        PasteImageFromClipboard action = new PasteImageFromClipboard();
+                        PasteImageFromClipboard action = new PasteImageFromClipboard(imagesFromClipboard);
                         AnActionEvent event = createAnEvent(action, dataContext);
                         action.actionPerformed(event);
                         return;

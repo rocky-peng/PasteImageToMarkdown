@@ -17,31 +17,25 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.SystemIndependent;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collections;
-
-import static com.leyongleshi.idea.plugin.pasteimageintomarkdown.ImageUtils.getImageFromClipboard;
-import static com.leyongleshi.idea.plugin.pasteimageintomarkdown.ImageUtils.toBufferedImage;
+import java.util.Map;
 
 
 public class PasteImageFromClipboard extends AnAction {
+
+    private Map<BufferedImage, String> imagesFromClipboard;
+
+    public PasteImageFromClipboard(Map<BufferedImage, String> imagesFromClipboard) {
+        this.imagesFromClipboard = imagesFromClipboard;
+    }
 
     @Override
     public void actionPerformed(AnActionEvent e) {
 
         Editor ed = e.getData(PlatformDataKeys.EDITOR);
         if (ed == null) {
-            return;
-        }
-
-        Image imageFromClipboard = getImageFromClipboard();
-        if (imageFromClipboard == null) {
-            return;
-        }
-        BufferedImage bufferedImage = toBufferedImage(imageFromClipboard);
-        if (bufferedImage == null) {
             return;
         }
 
@@ -69,27 +63,34 @@ public class PasteImageFromClipboard extends AnAction {
                     throw new RuntimeException("cannot mkdir:" + imageSaveDir.getAbsolutePath());
                 }
             }
-            File imgFile = new File(imageSaveDir, System.nanoTime() + ".png");
-            ImageUtils.saveImage(bufferedImage, imgFile);
 
-            //refresh
-            VirtualFile fileByPath = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(imgFile);
-            assert fileByPath != null;
+            for (Map.Entry<BufferedImage, String> entry : imagesFromClipboard.entrySet()) {
+                BufferedImage bufferedImage = entry.getKey();
+                String suffix = entry.getValue();
 
-            //add file to vcs
-            AbstractVcs usedVcs = ProjectLevelVcsManager.getInstance(ed.getProject()).getVcsFor(fileByPath);
-            if (usedVcs != null && usedVcs.getCheckinEnvironment() != null) {
-                usedVcs.getCheckinEnvironment().scheduleUnversionedFilesForAddition(Collections.singletonList(fileByPath));
+                File imgFile = new File(imageSaveDir, System.nanoTime() + suffix);
+                ImageUtils.saveImage(bufferedImage, imgFile);
+
+                //refresh
+                VirtualFile fileByPath = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(imgFile);
+                assert fileByPath != null;
+
+                //add file to vcs
+                AbstractVcs usedVcs = ProjectLevelVcsManager.getInstance(ed.getProject()).getVcsFor(fileByPath);
+                if (usedVcs != null && usedVcs.getCheckinEnvironment() != null) {
+                    usedVcs.getCheckinEnvironment().scheduleUnversionedFilesForAddition(Collections.singletonList(fileByPath));
+                }
+
+                //calc the relative path between current editor file and imgFile
+                Document currentDoc = FileEditorManager.getInstance(ed.getProject()).getSelectedTextEditor().getDocument();
+                VirtualFile currentFile = FileDocumentManager.getInstance().getFile(currentDoc);
+                File curDocument = new File(currentFile.getPath());
+                String imgRelativeUrl = curDocument.getParentFile().toPath().relativize(imgFile.toPath()).toFile().toString().replace('\\', '/');
+
+                //insert img url to md file
+                insertImageElement(ed, imgRelativeUrl);
             }
 
-            //calc the relative path between current editor file and imgFile
-            Document currentDoc = FileEditorManager.getInstance(ed.getProject()).getSelectedTextEditor().getDocument();
-            VirtualFile currentFile = FileDocumentManager.getInstance().getFile(currentDoc);
-            File curDocument = new File(currentFile.getPath());
-            String imgRelativeUrl = curDocument.getParentFile().toPath().relativize(imgFile.toPath()).toFile().toString().replace('\\', '/');
-
-            //insert img url to md file
-            insertImageElement(ed, imgRelativeUrl);
             return;
         }
 
@@ -116,8 +117,13 @@ public class PasteImageFromClipboard extends AnAction {
                 qiniuImgUrlPrefix += "/";
             }
             QiniuHelper qiniuHelper = new QiniuHelper(qiniuAccessKey, qiniuSecretKey, qiniuBucketName, qiniuImgUrlPrefix, 3);
-            String imgUrl = qiniuHelper.upload(bufferedImage, "markdown/" + System.nanoTime() + ".png");
-            insertImageElement(ed, imgUrl);
+
+            for (Map.Entry<BufferedImage, String> entry : imagesFromClipboard.entrySet()) {
+                BufferedImage bufferedImage = entry.getKey();
+                String suffix = entry.getValue();
+                String imgUrl = qiniuHelper.upload(bufferedImage, "markdown/" + System.nanoTime() + suffix);
+                insertImageElement(ed, imgUrl);
+            }
         }
     }
 
@@ -126,7 +132,7 @@ public class PasteImageFromClipboard extends AnAction {
     }
 
     private void insertImageElement(final @NotNull Editor editor, String imageurl) {
-        String picUrl = "![](" + imageurl + ")";
+        String picUrl = "![](" + imageurl + ")" + System.lineSeparator();
         Runnable r = () -> EditorModificationUtil.insertStringAtCaret(editor, picUrl);
         WriteCommandAction.runWriteCommandAction(editor.getProject(), r);
     }
