@@ -22,7 +22,7 @@ import java.io.InputStream;
  */
 public class QiniuHelper {
 
-    private static final UploadManager UPLOAD_MANAGER = new UploadManager(new Configuration(Region.region2()));
+    private static final UploadManager UPLOAD_MANAGER = new UploadManager(new Configuration());
     private String accessKey;
     private String secretKey;
     private String bucket;
