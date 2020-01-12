@@ -1,18 +1,25 @@
 # PasteImageToMarkdown
 
 - 把粘贴板的图片插入到markdown文件中。
-- 可以选择保存到：<br>
+- 可以选择保存图片到：<br>
     1. 本地保存<br>
     2. 七牛云<br>
     3. 阿里云(正在开发中)<br>
     4. 腾讯云(正在开发中)<br>
     
+- 可以支持：<br>
+    1. 一次性粘贴多张磁盘图片（会自动过滤非图片文件）<br>
+    2. 支持粘贴gif图片<br>
+    3. 其他方式保存到粘贴板的图片<br><br>  
+          
+- 下载安装
+    1. 可以直接在jetbrains插件仓库搜索 PasteImageIntoMarkdown 安装。
+    2. 由于jetbrains对插件发布有延迟，通过jetbrains插件仓库下载到的未必是最新版，
+    最新版可以在这里下载：[最新版下载][https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]
+    
     安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。<br><br>
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
     github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a>
-- 下载安装
-    由于jetbrains对插件发布有延迟，通过jetbrains插件仓库下载到的未必是最新版，最新版可以在这里下载：
-    [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest][https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]
   
 ## 本地存储
 填写的路径是相对于工程目录
