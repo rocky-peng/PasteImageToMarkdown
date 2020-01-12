@@ -10,7 +10,10 @@
     安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。<br><br>
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
     github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a>
-    
+- 下载安装
+    由于jetbrains对插件发布有延迟，通过jetbrains插件仓库下载到的未必是最新版，最新版可以在这里下载：
+    [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest][https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]
+  
 ## 本地存储
 填写的路径是相对于工程目录
 ![](http://img.ljd.leyongleshi.com/markdown/118043455692180.png)
@@ -30,3 +33,6 @@
 
 ### v1.2
 1. 支持把图片保存到七牛云
+
+
+[https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
