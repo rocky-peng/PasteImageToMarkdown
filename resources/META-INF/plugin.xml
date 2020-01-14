@@ -5,41 +5,39 @@
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
-    把粘贴板的图片插入到markdown文件中。<br><br>
+    Insert the image of the clipboard into the markdown file.<br><br>
 
-    可以选择把图片保存到：<br>
-    1. 本地保存<br>
-    2. 七牛云<br>
-    3. 阿里云(正在开发中)<br>
-    4. 腾讯云(正在开发中)<br><br>
+    The location where you can choose to save the image ：<br>
+    1. the relative dir<br>
+    2. qiniu.com<br>
+    3. aliyun.com(under development)<br>
+    4. cloud.tencent.com(under development)<br><br>
 
-    可以支持：<br>
-    1. 一次性粘贴多张磁盘图片（会自动过滤非图片文件）<br>
-    2. 支持粘贴gif图片<br>
-    3. 其他方式保存到粘贴板的图片<br><br>
+    The plugin supports：<br>
+    1. Paste multiple images from hard disk at one time (the files which are not image will be filtered automatically)<br>
+    2. Support for pasting GIF images<br>
+    3. Images saved to clipboard in other ways<br><br>
 
-    安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。<br><br>
-    如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
-    github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
+    After installed,please go to: Setting->Other Settings->PasteImageIntoMarkdown to fill the necessary infos<br><br>
+    If something went wrong,do not be stingy about emailing me: rocky.peng@qq.com or go to GitHub to submit the issue<br><br>
+    GitHub: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
 
-    由于jetbrains对插件发布有延迟，通过jetbrains插件仓库能下载到的未必是最新版.<br>
-    最新版可以在这里下载：<a href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">最新版下载</a><br><br>
+    The version from jetbrains Plugin Repository may not be the newest,<br>
+    You can always reach the newest version at: <a href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">the newest version</a><br><br>
 
-    本地存储：(填写的路径是相对于工程目录)<br>
+    Relative Dir:<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
 
-    七牛云存储：<br>
+    Qiniu.com：<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/118192020648670.png"/>
     ]]></description>
 
     <change-notes><![CDATA[
       <ul>
-        <li>修复粘贴磁盘gif图片的bug</li>
-        <li>支持一次性粘贴多张磁盘图片</li>
-        <li>支持本地存储</li>
-        <li>支持七牛云存储</li>
-        <li>阿里云(正在开发中)</li>
-        <li>腾讯云(正在开发中)</li>
+        <li>Fix a bug about pasting gif image</li>
+        <li>Paste multiple images from hard disk at one time</li>
+        <li>Support saving image to relative dir</li>
+        <li>Support uploading image to qiniu.com</li>
       </ul>
     ]]>
     </change-notes>
