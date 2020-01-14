@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.5.2</version>
+    <version>1.5.3</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
@@ -16,19 +16,20 @@
     The plugin supports：<br>
     1. Paste multiple images from hard disk at one time (the files which are not image will be filtered automatically)<br>
     2. Support for pasting GIF images<br>
-    3. Images saved to clipboard in other ways<br><br>
+    3. Paste the images saved to clipboard in other ways<br><br>
 
     After installed,please go to: Setting->Other Settings->PasteImageIntoMarkdown to fill the necessary infos<br><br>
-    If something went wrong,do not be stingy about emailing me: rocky.peng@qq.com or go to GitHub to submit the issue<br><br>
-    GitHub: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
+    If something went wrong,do not be stingy about emailing me: rocky.peng@qq.com <br>
+    or go to github to submit the issue<br><br>
+    github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
 
-    The version from jetbrains Plugin Repository may not be the newest,<br>
+    The version from jetbrains plugin repository may not be the newest,<br>
     You can always reach the newest version at: <a href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">the newest version</a><br><br>
 
-    Relative Dir:<br>
+    The setting of relative dir:<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
 
-    Qiniu.com：<br>
+    The setting of qiniu.com：<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/118192020648670.png"/>
     ]]></description>
 
