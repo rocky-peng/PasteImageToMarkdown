@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
@@ -35,6 +35,7 @@
 
     <change-notes><![CDATA[
       <ul>
+        <li>change the format of cdn image link</li>
         <li>Fix a bug about pasting gif image</li>
         <li>Paste multiple images from hard disk at one time</li>
         <li>Support saving image to relative dir</li>
