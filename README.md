@@ -1,10 +1,26 @@
 # PasteImageToMarkdown
 
+## 版本更新记录
+### v1.5.5
+1. 修复windows下无法正常工作的bug
+2. 添加对阿里云对象存储的支持
+
+
+### v1.5.4
+1. 修复粘贴磁盘gif图片的bug
+2. 支持一次性粘贴多张磁盘图片
+
+
+### v1.5.3
+1. 支持把图片保存到七牛云
+2. 支持图片保存到工程中
+
+## 介绍
 - 把粘贴板的图片插入到markdown文件中。
 - 可以选择保存图片到：<br>
     1. 本地保存<br>
     2. 七牛云<br>
-    3. 阿里云(正在开发中)<br>
+    3. 阿里云<br>
     4. 腾讯云(正在开发中)<br>
     
 - 可以支持：<br>
@@ -21,28 +37,14 @@
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
     github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a>
   
-## 本地存储
+### 本地存储
 填写的路径是相对于工程目录
 ![](http://img.ljd.leyongleshi.com/markdown/118043455692180.png)
 
-## 七牛云存储
+### 七牛云存储
 ![](http://img.ljd.leyongleshi.com/markdown/118192020648670.png)
 
-## Change Nodes
-### v1.5.5
-1. 修复windows下无法正常工作的bug
-2. 添加对阿里云对象存储的支持
-
-### v1.5
-1. 修复粘贴磁盘gif图片的bug
-
-### v1.4
-1. 支持一次性粘贴多张磁盘图片
-
-### v1.3
-1. 支持图片保存到工程中
-
-### v1.2
-1. 支持把图片保存到七牛云
+### 阿里云存储
+![](http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png)
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
