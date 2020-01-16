@@ -1,5 +1,6 @@
 package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 
+import com.aliyun.oss.OSSClient;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -18,9 +19,9 @@ import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.SystemIndependent;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class PasteImageFromClipboard extends AnAction {
             throw new RuntimeException("please fill infos in settings");
         }
 
-        if (!"LOCAL".equalsIgnoreCase(imageSaveLocationValue) && !"QINIU".equalsIgnoreCase(imageSaveLocationValue)) {
+        if (!"LOCAL".equalsIgnoreCase(imageSaveLocationValue) && !"QINIU".equalsIgnoreCase(imageSaveLocationValue)&&!"ALIYUN".equalsIgnoreCase(imageSaveLocationValue)) {
             throw new RuntimeException("not support " + imageSaveLocationValue.toLowerCase());
         }
 
@@ -148,6 +149,74 @@ public class PasteImageFromClipboard extends AnAction {
                 insertImageElement(ed, imgUrl);
             }
         }
+
+        if("ALIYUN".equalsIgnoreCase(imageSaveLocationValue)){
+            String aliyunAccessKeySecret = PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_SECRET);
+            String aliyunEndPoint = PropertiesComponent.getInstance().getValue(Constants.ALIYUN_END_POINT);
+            String aliyunAccessKeyId = PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_ID);
+            String aliyunBucketName = PropertiesComponent.getInstance().getValue(Constants.ALIYUN_BUCKET_NAME);
+            String aliyunFolder = PropertiesComponent.getInstance().getValue(Constants.ALIYUN_FOLDER);
+
+
+            if (isEmpty(aliyunAccessKeySecret)) {
+                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_SECRET in settings");
+            }
+            if (isEmpty(aliyunEndPoint)) {
+                throw new RuntimeException("please set ALIYUN_END_POINT in settings");
+            }
+            if (isEmpty(aliyunAccessKeyId)) {
+                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_ID in settings");
+            }
+            if (isEmpty(aliyunBucketName)) {
+                throw new RuntimeException("please set ALIYUN_BUCKET_NAME in settings");
+            }
+            if (isEmpty(aliyunFolder)) {
+                throw new RuntimeException("please set ALIYUN_FOLDER in settings");
+            }
+
+
+            for (Map.Entry<Object, String> entry : imagesFromClipboard.entrySet()) {
+                Object key = entry.getKey();
+                String suffix = entry.getValue();
+                String imgUrl = "";
+                if(key instanceof BufferedImage){
+                    OSSClientUtil ossClientUtil= new OSSClientUtil();
+                    ossClientUtil.setAccessKeySecret(aliyunAccessKeySecret);
+                    ossClientUtil.setEndpoint(aliyunEndPoint);
+                    ossClientUtil.setAccessKeyId(aliyunAccessKeyId);
+                    ossClientUtil.setBucketName(aliyunBucketName);
+                    ossClientUtil.setFolder(aliyunFolder);
+
+                    OSSClient ossClient = OSSClientUtil.getOSSClient();
+
+                    BufferedImage bufferedImage = (BufferedImage) key;
+                    InputStream inputStream = bufferedImageToInputStream(bufferedImage);
+                    try {
+                        imgUrl = OSSClientUtil.uploadObject2OSSBufferImages(ossClient,aliyunBucketName,aliyunFolder,System.nanoTime() + suffix,Long.valueOf(inputStream.available()),inputStream);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }else if(key instanceof File){
+                    File file = (File) key;
+
+                    OSSClientUtil ossClientUtil= new OSSClientUtil();
+                    ossClientUtil.setAccessKeySecret(aliyunAccessKeySecret);
+                    ossClientUtil.setEndpoint(aliyunEndPoint);
+                    ossClientUtil.setAccessKeyId(aliyunAccessKeyId);
+                    ossClientUtil.setBucketName(aliyunBucketName);
+                    ossClientUtil.setFolder(aliyunFolder);
+
+                    OSSClient ossClient = OSSClientUtil.getOSSClient();
+                    imgUrl = OSSClientUtil.uploadObject2OSS(ossClient,file,aliyunBucketName,aliyunFolder);
+                }else {
+                    throw new RuntimeException("something wrong");
+                }
+                insertImageElement(ed, imgUrl);
+            }
+
+
+
+        }
     }
 
     private boolean isEmpty(String s) {
@@ -155,8 +224,27 @@ public class PasteImageFromClipboard extends AnAction {
     }
 
     private void insertImageElement(final @NotNull Editor editor, String imageurl) {
-        String picUrl = "![](" + imageurl + ")" + System.lineSeparator();
+        //System.lineSeparator 不兼容windows，则抛弃
+        //String s = System.lineSeparator();
+        String picUrl = "![](" + imageurl + ")" + "\n";
         Runnable r = () -> EditorModificationUtil.insertStringAtCaret(editor, picUrl);
         WriteCommandAction.runWriteCommandAction(editor.getProject(), r);
+    }
+
+
+    /**
+     * 将BufferedImage转换为InputStream
+     * @param image
+     * @return
+     */
+    public InputStream bufferedImageToInputStream(BufferedImage image){
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", os);
+            InputStream input = new ByteArrayInputStream(os.toByteArray());
+            return input;
+        } catch (IOException e) {
+            return null;
+        }
     }
 }
