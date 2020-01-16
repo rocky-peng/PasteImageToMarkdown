@@ -21,8 +21,15 @@ import org.jetbrains.annotations.SystemIndependent;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+
 import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -72,17 +79,17 @@ public class PasteImageFromClipboard extends AnAction {
                 String suffix = entry.getValue();
                 File imgFile = new File(imageSaveDir, System.nanoTime() + suffix);
 
-                if(key instanceof BufferedImage){
+                if (key instanceof BufferedImage) {
                     BufferedImage bufferedImage = (BufferedImage) key;
                     ImageUtils.saveImage(bufferedImage, imgFile);
-                }else if(key instanceof File){
+                } else if (key instanceof File) {
                     File file = (File) key;
                     try {
-                        FileUtils.copyFile(file,imgFile);
+                        FileUtils.copyFile(file, imgFile);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                }else {
+                } else {
                     throw new RuntimeException("something wrong");
                 }
 
@@ -137,13 +144,13 @@ public class PasteImageFromClipboard extends AnAction {
                 Object key = entry.getKey();
                 String suffix = entry.getValue();
                 String imgUrl;
-                if(key instanceof BufferedImage){
+                if (key instanceof BufferedImage) {
                     BufferedImage bufferedImage = (BufferedImage) key;
-                    imgUrl = qiniuHelper.upload(bufferedImage, "markdown/" + System.nanoTime() + suffix);
-                }else if(key instanceof File){
+                    imgUrl = qiniuHelper.upload(bufferedImage, genCdnFilePathAndName(suffix));
+                } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = qiniuHelper.upload(file, "markdown/" + System.nanoTime() + suffix);
-                }else {
+                    imgUrl = qiniuHelper.upload(file, genCdnFilePathAndName(suffix));
+                } else {
                     throw new RuntimeException("something wrong");
                 }
                 insertImageElement(ed, imgUrl);
@@ -217,6 +224,12 @@ public class PasteImageFromClipboard extends AnAction {
 
 
         }
+    }
+
+    private static String genCdnFilePathAndName(String suffix) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd/HH-mm-ss/");
+        Date now = new Date();
+        return "pasteimageintomarkdown/" + sdf.format(now) + System.nanoTime() + suffix;
     }
 
     private boolean isEmpty(String s) {
