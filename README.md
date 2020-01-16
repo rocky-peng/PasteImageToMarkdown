@@ -46,3 +46,5 @@
 1. 支持把图片保存到七牛云
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
+
+xx
