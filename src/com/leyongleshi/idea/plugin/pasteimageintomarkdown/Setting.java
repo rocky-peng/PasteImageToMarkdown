@@ -86,9 +86,6 @@ public class Setting implements Configurable {
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_ACCESS_KEY_ID, aliyunAccessKeyId.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_BUCKET_NAME, aliyunBucketName.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_FOLDER, aliyunFolder.getText());
-//        if("ALIYUN".equalsIgnoreCase(imageSaveLocation)){
-//            throw new ConfigurationException("NOT SUPPORT ALIYUN(阿里云) NOW!");
-//        }
     }
 
 
@@ -130,6 +127,5 @@ public class Setting implements Configurable {
         aliyunAccessKeyId.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_ID));
         aliyunBucketName.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_BUCKET_NAME));
         aliyunFolder.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_FOLDER));
-
     }
 }
