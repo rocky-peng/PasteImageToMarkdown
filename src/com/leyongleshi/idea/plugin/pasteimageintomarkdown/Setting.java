@@ -22,6 +22,11 @@ public class Setting implements Configurable {
     private JTabbedPane saveImgPanel;
     private JLabel imgSaveLocationLabel;
     private JTextField localRelativeDirPathField;
+    private JTextField aliyunAccessKeySecret;
+    private JTextField aliyunEndPoint;
+    private JTextField aliyunAccessKeyId;
+    private JTextField aliyunBucketName;
+    private JTextField aliyunFolder;
     private String imageSaveLocation = "LOCAL";
 
     public Setting() {
@@ -76,9 +81,14 @@ public class Setting implements Configurable {
         PropertiesComponent.getInstance().setValue(Constants.QINIU_BUCKET_NAME, qiniuBucketNameField.getText());
 
         //aliyun
-        if("ALIYUN".equalsIgnoreCase(imageSaveLocation)){
-            throw new ConfigurationException("NOT SUPPORT ALIYUN(阿里云) NOW!");
-        }
+        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_ACCESS_KEY_SECRET, aliyunAccessKeySecret.getText());
+        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_END_POINT, aliyunEndPoint.getText());
+        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_ACCESS_KEY_ID, aliyunAccessKeyId.getText());
+        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_BUCKET_NAME, aliyunBucketName.getText());
+        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_FOLDER, aliyunFolder.getText());
+//        if("ALIYUN".equalsIgnoreCase(imageSaveLocation)){
+//            throw new ConfigurationException("NOT SUPPORT ALIYUN(阿里云) NOW!");
+//        }
     }
 
 
@@ -108,9 +118,18 @@ public class Setting implements Configurable {
         }
         localRelativeDirPathField.setText(localRelativeDirPath);
 
+        //qiniu
         qiniuImgUrlPrefixField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_IMG_URL_PREFIX));
         qiniuAccessKeyField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_ACCESS_KEY));
         qiniuSecretKeyField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_SECRET_KEY));
         qiniuBucketNameField.setText(PropertiesComponent.getInstance().getValue(Constants.QINIU_BUCKET_NAME));
+
+        //aliyun
+        aliyunAccessKeySecret.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_SECRET));
+        aliyunEndPoint.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_END_POINT));
+        aliyunAccessKeyId.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_ID));
+        aliyunBucketName.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_BUCKET_NAME));
+        aliyunFolder.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_FOLDER));
+
     }
 }
