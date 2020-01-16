@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
@@ -10,7 +10,7 @@
     The location where you can choose to save the image ：<br>
     1. the relative dir<br>
     2. qiniu.com<br>
-    3. aliyun.com(under development)<br>
+    3. aliyun.com<br>
     4. cloud.tencent.com(under development)<br><br>
 
     The plugin supports：<br>
@@ -30,11 +30,16 @@
     <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
 
     The setting of qiniu.com：<br>
-    <img src="http://img.ljd.leyongleshi.com/markdown/118192020648670.png"/>
+    <img src="http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-56-33/50988516589598.png"/><br><br>
+
+    The setting of aliyun oss：<br>
+    <img src="http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png"/><br><br>
     ]]></description>
 
     <change-notes><![CDATA[
       <ul>
+        <li>Add aliyun oss support</li>
+        <li>Fix a bug in windows platform</li>
         <li>change the format of cdn image link</li>
         <li>Fix a bug about pasting gif image</li>
         <li>Paste multiple images from hard disk at one time</li>

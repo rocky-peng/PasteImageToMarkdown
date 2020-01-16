@@ -26,7 +26,6 @@ public class Setting implements Configurable {
     private JTextField aliyunEndPoint;
     private JTextField aliyunAccessKeyId;
     private JTextField aliyunBucketName;
-    private JTextField aliyunFolder;
     private String imageSaveLocation = "LOCAL";
 
     public Setting() {
@@ -85,7 +84,6 @@ public class Setting implements Configurable {
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_END_POINT, aliyunEndPoint.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_ACCESS_KEY_ID, aliyunAccessKeyId.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_BUCKET_NAME, aliyunBucketName.getText());
-        PropertiesComponent.getInstance().setValue(Constants.ALIYUN_FOLDER, aliyunFolder.getText());
     }
 
 
@@ -126,6 +124,5 @@ public class Setting implements Configurable {
         aliyunEndPoint.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_END_POINT));
         aliyunAccessKeyId.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_ID));
         aliyunBucketName.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_BUCKET_NAME));
-        aliyunFolder.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_FOLDER));
     }
 }

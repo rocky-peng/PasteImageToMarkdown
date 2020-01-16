@@ -29,6 +29,10 @@
 ![](http://img.ljd.leyongleshi.com/markdown/118192020648670.png)
 
 ## Change Nodes
+### v1.5.5
+1. 修复windows下无法正常工作的bug
+2. 添加对阿里云对象存储的支持
+
 ### v1.5
 1. 修复粘贴磁盘gif图片的bug
 
@@ -40,6 +44,5 @@
 
 ### v1.2
 1. 支持把图片保存到七牛云
-
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
