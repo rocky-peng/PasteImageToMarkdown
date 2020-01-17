@@ -94,6 +94,7 @@ public class OSSClientUtil {
             String fileDir = object.getKey();
             return fileDir;
         }
+
         return keySuffixWithSlash;
     }
 
@@ -153,7 +154,7 @@ public class OSSClientUtil {
             PutObjectResult putResult = ossClient.putObject(bucketName, folder + "/" + fileName, is, metadata);
             Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
             // 生成URL，第一个参数为bucketName，第二个参数key为上传的文件路径名称，第三个为过期时间
-            URL url = ossClient.generatePresignedUrl(bucketName ,folder + "/" + fileName , expiration)
+            URL url = ossClient.generatePresignedUrl(bucketName ,folder + "/" + fileName , expiration);
             return url.toString();
         } catch (Exception e) {
             e.printStackTrace();
