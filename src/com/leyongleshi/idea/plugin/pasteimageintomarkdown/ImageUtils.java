@@ -73,9 +73,7 @@ public class ImageUtils {
             return result;
         }
 
-        DataFlavor[] flavors = transferable.getTransferDataFlavors();
-        //如果复制的是一张图片
-        if (flavors.length == 1 && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+        if (transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
             Image image = null;
             try {
                 image = (Image) transferable.getTransferData(DataFlavor.imageFlavor);
