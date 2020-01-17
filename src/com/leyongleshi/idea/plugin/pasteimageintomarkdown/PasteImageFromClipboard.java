@@ -106,7 +106,6 @@ public class PasteImageFromClipboard extends AnAction {
                 //insert img url to md file
                 insertImageElement(ed, imgRelativeUrl);
             }
-
             return;
         }
 
@@ -186,6 +185,7 @@ public class PasteImageFromClipboard extends AnAction {
                 }
                 insertImageElement(ed, imgUrl);
             }
+
             return;
         }
     }

@@ -35,9 +35,7 @@ public class ImageUtils {
                 if (!file.isFile()) {
                     continue;
                 }
-                if (file.canExecute()) {
-                    continue;
-                }
+
                 if (!file.canRead()) {
                     continue;
                 }
