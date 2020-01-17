@@ -105,7 +105,6 @@ public class PasteImageFromClipboard extends AnAction {
 
                 //insert img url to md file
                 insertImageElement(ed, imgRelativeUrl);
-                //test Sweats
             }
             return;
         }
