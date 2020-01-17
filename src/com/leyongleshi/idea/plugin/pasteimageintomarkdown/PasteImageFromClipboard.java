@@ -186,6 +186,7 @@ public class PasteImageFromClipboard extends AnAction {
                 }
                 insertImageElement(ed, imgUrl);
             }
+
             return;
         }
     }
