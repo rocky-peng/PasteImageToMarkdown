@@ -1,6 +1,10 @@
 # PasteImageToMarkdown
 
 ## 版本更新记录
+### v1.5.6
+1. 修复windows下复制磁盘上图片的bug
+2. 支持复制网页上的图片
+
 ### v1.5.5
 1. 修复windows下无法正常工作的bug
 2. 添加对阿里云对象存储的支持
@@ -46,8 +50,5 @@
 
 ### 阿里云存储
 ![](http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png)
-
-
-
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
