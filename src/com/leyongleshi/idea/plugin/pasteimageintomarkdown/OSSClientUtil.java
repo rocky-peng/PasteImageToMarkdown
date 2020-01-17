@@ -121,6 +121,7 @@ public class OSSClientUtil {
      */
     public static String uploadObject2OSS(OSSClient ossClient, File file, String bucketName, String folder) {
         String resultStr = null;
+
         try {
             // 以输入流的形式上传文件
             InputStream is = new FileInputStream(file);
