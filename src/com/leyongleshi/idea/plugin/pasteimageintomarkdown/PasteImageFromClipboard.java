@@ -199,16 +199,16 @@ public class PasteImageFromClipboard extends AnAction {
             String tencentBucketName = PropertiesComponent.getInstance().getValue(Constants.TENCENT_BUCKET_NAME);
 
             if (isEmpty(tencentSecretId)) {
-                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_SECRET in settings");
+                throw new RuntimeException("please set TENCENT_SECRET_ID in settings");
             }
             if (isEmpty(tencentSecretKey)) {
-                throw new RuntimeException("please set ALIYUN_END_POINT in settings");
+                throw new RuntimeException("please set TENCENT_SECRET_KEY in settings");
             }
             if (isEmpty(tencentRegion)) {
-                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_ID in settings");
+                throw new RuntimeException("please set TENCENT_REGION in settings");
             }
             if (isEmpty(tencentBucketName)) {
-                throw new RuntimeException("please set ALIYUN_BUCKET_NAME in settings");
+                throw new RuntimeException("please set TENCENT_BUCKET_NAME in settings");
             }
 
             TencentOSSHelper tencentOSSHelper = new TencentOSSHelper(tencentSecretId, tencentSecretKey, tencentRegion, tencentBucketName);
