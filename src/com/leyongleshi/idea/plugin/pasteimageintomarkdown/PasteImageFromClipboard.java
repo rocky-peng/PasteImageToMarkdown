@@ -232,7 +232,7 @@ public class PasteImageFromClipboard extends AnAction {
     }
 
     private static String genCdnFilePathAndName(String suffix) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd/HH-mm-ss/");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd/");
         Date now = new Date();
         return "pasteimageintomarkdown/" + sdf.format(now) + System.nanoTime() + suffix;
     }
