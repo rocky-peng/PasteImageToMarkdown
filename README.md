@@ -1,6 +1,9 @@
 # PasteImageToMarkdown
 
 ## 版本更新记录
+### v1.5.7
+1. 添加对腾讯云对象存储的支持
+
 ### v1.5.6
 1. 修复windows下复制磁盘上图片的bug
 2. 支持复制网页上的图片
@@ -50,5 +53,9 @@
 
 ### 阿里云存储
 ![](http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png)
+
+### 腾讯云存储
+![](http://paste-image-to-markdown-1259342648.cos.ap-chongqing.myqcloud.com/pasteimageintomarkdown/2020-01-18/21-40-50/122557287276705.png)
+
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest

@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.5.6</version>
+    <version>1.5.7</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
     <description><![CDATA[
@@ -13,7 +13,7 @@
     1. the relative dir<br>
     2. qiniu.com<br>
     3. aliyun.com<br>
-    4. cloud.tencent.com(under development)<br><br>
+    4. cloud.tencent.com<br><br>
 
     The plugin supports：<br>
     1. Paste multiple images from hard disk at one time (the files which are not image will be filtered automatically)<br>
@@ -37,6 +37,9 @@
     The setting of aliyun oss(阿里云设置)：<br>
     <img src="http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png"/><br><br>
 
+    The setting of tencent cloud oss(腾讯云设置)：<br>
+    <img src="http://paste-image-to-markdown-1259342648.cos.ap-chongqing.myqcloud.com/pasteimageintomarkdown/2020-01-18/21-40-50/122557287276705.png"/><br><br>
+
     <br><br>
 
     中文介绍:<br><br>
@@ -47,7 +50,7 @@
     1. 本地保存<br>
     2. 七牛云<br>
     3. 阿里云<br>
-    4. 腾讯云(正在开发中)<br><br>
+    4. 腾讯云<br><br>
 
     可以支持：<br>
     1. 一次性粘贴多张磁盘图片（会自动过滤非图片文件）<br>
@@ -67,6 +70,7 @@
 
     <change-notes><![CDATA[
       <ul>
+        <li>Add tencent cloud oss support</li>
         <li>Support pasting image from website</li>
         <li>Fix a bug in windows platform again</li>
         <li>Add aliyun oss support</li>
