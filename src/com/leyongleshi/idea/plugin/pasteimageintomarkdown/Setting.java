@@ -114,9 +114,12 @@ public class Setting implements Configurable {
         } else if ("QINIU".equalsIgnoreCase(imageSaveLocation)) {
             saveImgPanel.setSelectedIndex(1);
             onImageSaveLocationChanged(1);
-        } else {
+        } else if ("ALIYUN".equalsIgnoreCase(imageSaveLocation)) {
             saveImgPanel.setSelectedIndex(2);
             onImageSaveLocationChanged(2);
+        } else {
+            saveImgPanel.setSelectedIndex(3);
+            onImageSaveLocationChanged(3);
         }
 
         String localRelativeDirPath = PropertiesComponent.getInstance().getValue(Constants.LOCAL_RELATIVE_DIR_PATH);
