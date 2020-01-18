@@ -26,6 +26,10 @@ public class Setting implements Configurable {
     private JTextField aliyunEndPoint;
     private JTextField aliyunAccessKeyId;
     private JTextField aliyunBucketName;
+    private JTextField tencentSecretId;
+    private JTextField tencentSecretKey;
+    private JTextField tencentRegion;
+    private JTextField tencentBucketName;
     private String imageSaveLocation = "LOCAL";
 
     public Setting() {
@@ -42,8 +46,10 @@ public class Setting implements Configurable {
             imageSaveLocation = "LOCAL";
         } else if (selectedIndex == 1) {
             imageSaveLocation = "QINIU";
-        } else {
+        } else if (selectedIndex == 2){
             imageSaveLocation = "ALIYUN";
+        } else {
+            imageSaveLocation = "TENCENT";
         }
         imgSaveLocationLabel.setText(imageSaveLocation);
     }
@@ -84,6 +90,12 @@ public class Setting implements Configurable {
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_END_POINT, aliyunEndPoint.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_ACCESS_KEY_ID, aliyunAccessKeyId.getText());
         PropertiesComponent.getInstance().setValue(Constants.ALIYUN_BUCKET_NAME, aliyunBucketName.getText());
+
+        //tencent
+        PropertiesComponent.getInstance().setValue(Constants.TENCENT_SECRET_ID, tencentSecretId.getText());
+        PropertiesComponent.getInstance().setValue(Constants.TENCENT_SECRET_KEY, tencentSecretKey.getText());
+        PropertiesComponent.getInstance().setValue(Constants.TENCENT_REGION, tencentRegion.getText());
+        PropertiesComponent.getInstance().setValue(Constants.TENCENT_BUCKET_NAME, tencentBucketName.getText());
     }
 
 
@@ -124,5 +136,11 @@ public class Setting implements Configurable {
         aliyunEndPoint.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_END_POINT));
         aliyunAccessKeyId.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_ACCESS_KEY_ID));
         aliyunBucketName.setText(PropertiesComponent.getInstance().getValue(Constants.ALIYUN_BUCKET_NAME));
+
+        //tencent
+        tencentSecretId.setText(PropertiesComponent.getInstance().getValue(Constants.TENCENT_SECRET_ID));
+        tencentSecretKey.setText(PropertiesComponent.getInstance().getValue(Constants.TENCENT_SECRET_KEY));
+        tencentRegion.setText(PropertiesComponent.getInstance().getValue(Constants.TENCENT_REGION));
+        tencentBucketName.setText(PropertiesComponent.getInstance().getValue(Constants.TENCENT_BUCKET_NAME));
     }
 }

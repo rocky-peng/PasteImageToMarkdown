@@ -49,7 +49,10 @@ public class PasteImageFromClipboard extends AnAction {
             throw new RuntimeException("please fill infos in settings");
         }
 
-        if (!"LOCAL".equalsIgnoreCase(imageSaveLocationValue) && !"QINIU".equalsIgnoreCase(imageSaveLocationValue) && !"ALIYUN".equalsIgnoreCase(imageSaveLocationValue)) {
+        if (!"LOCAL".equalsIgnoreCase(imageSaveLocationValue) &&
+                !"QINIU".equalsIgnoreCase(imageSaveLocationValue) &&
+                !"ALIYUN".equalsIgnoreCase(imageSaveLocationValue) &&
+                !"TENCENT".equalsIgnoreCase(imageSaveLocationValue)) {
             throw new RuntimeException("not support " + imageSaveLocationValue.toLowerCase());
         }
 
@@ -180,6 +183,44 @@ public class PasteImageFromClipboard extends AnAction {
                 } else if (key instanceof File) {
                     File file = (File) key;
                     imgUrl = aliyunOSSHelper.upload(file,genCdnFilePathAndName(suffix));
+                } else {
+                    throw new RuntimeException("something wrong");
+                }
+                insertImageElement(ed, imgUrl);
+            }
+
+            return;
+        }
+
+        if ("TENCENT".equalsIgnoreCase(imageSaveLocationValue)) {
+            String tencentSecretId = PropertiesComponent.getInstance().getValue(Constants.TENCENT_SECRET_ID);
+            String tencentSecretKey = PropertiesComponent.getInstance().getValue(Constants.TENCENT_SECRET_KEY);
+            String tencentRegion = PropertiesComponent.getInstance().getValue(Constants.TENCENT_REGION);
+            String tencentBucketName = PropertiesComponent.getInstance().getValue(Constants.TENCENT_BUCKET_NAME);
+
+            if (isEmpty(tencentSecretId)) {
+                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_SECRET in settings");
+            }
+            if (isEmpty(tencentSecretKey)) {
+                throw new RuntimeException("please set ALIYUN_END_POINT in settings");
+            }
+            if (isEmpty(tencentRegion)) {
+                throw new RuntimeException("please set ALIYUN_ACCESS_KEY_ID in settings");
+            }
+            if (isEmpty(tencentBucketName)) {
+                throw new RuntimeException("please set ALIYUN_BUCKET_NAME in settings");
+            }
+
+            TencentOSSHelper tencentOSSHelper = new TencentOSSHelper(tencentSecretId, tencentSecretKey, tencentRegion, tencentBucketName);
+            for (Map.Entry<Object, String> entry : imagesFromClipboard.entrySet()) {
+                Object key = entry.getKey();
+                String suffix = entry.getValue();
+                String imgUrl = "";
+                if (key instanceof BufferedImage) {
+                    imgUrl = tencentOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix));
+                } else if (key instanceof File) {
+                    File file = (File) key;
+                    imgUrl = tencentOSSHelper.upload(file,genCdnFilePathAndName(suffix));
                 } else {
                     throw new RuntimeException("something wrong");
                 }
