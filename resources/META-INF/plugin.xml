@@ -11,9 +11,9 @@
 
     The location where you can choose to save the image ：<br>
     1. the relative dir<br>
-    2. qiniu.com<br>
-    3. aliyun.com<br>
-    4. cloud.tencent.com<br><br>
+    2. <a target="_blank" href="https://portal.qiniu.com/qvm/active?code=1381239317kEE2y">qiniu.com</a><br>
+    3. <a target="_blank" href="https://www.aliyun.com/minisite/goods?userCode=j9pkgcae">aliyun.com</a><br>
+    4. <a target="_blank" href="https://url.cn/5F2M7Np">cloud.tencent.com</a><br><br>
 
     The plugin supports：<br>
     1. Paste multiple images from hard disk at one time (the files which are not image will be filtered automatically)<br>
@@ -23,10 +23,10 @@
     After installed,please go to: Setting->Other Settings->PasteImageIntoMarkdown to fill the necessary infos<br><br>
     If something went wrong,do not be stingy about emailing me: rocky.peng@qq.com <br>
     or go to github to submit the issue<br><br>
-    github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
+    github: <a target="_blank" href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a> <br><br>
 
     The version from jetbrains plugin repository may not be the newest,<br>
-    You can always reach the newest version at: <a href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">the newest version</a><br><br>
+    You can always reach the newest version at: <a target="_blank" href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">the newest version</a><br><br>
 
     The setting of relative dir(相对路径设置):<br>
     <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
@@ -48,9 +48,9 @@
 
     可以选择保存图片到：<br>
     1. 本地保存<br>
-    2. 七牛云<br>
-    3. 阿里云<br>
-    4. 腾讯云<br><br>
+    2. <a target="_blank" href="https://portal.qiniu.com/qvm/active?code=1381239317kEE2y">七牛云</a><br>
+    3. <a target="_blank" href="https://www.aliyun.com/minisite/goods?userCode=j9pkgcae">阿里云</a><br>
+    4. <a target="_blank" href="https://url.cn/5F2M7Np">腾讯云</a><br><br>
 
     可以支持：<br>
     1. 一次性粘贴多张磁盘图片（会自动过滤非图片文件）<br>
@@ -60,11 +60,11 @@
     下载安装:<br>
     1. 可以直接在jetbrains插件仓库搜索 PasteImageIntoMarkdown 安装。<br>
     2. 由于jetbrains对插件发布有延迟，通过jetbrains插件仓库下载到的未必是最新版，<br>
-    最新版可以在这里下载：<a href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">最新版下载</a><br><br>
+    最新版可以在这里下载：<a target="_blank" href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">最新版下载</a><br><br>
 
     安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。<br><br>
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
-    github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a><br><br>
+    github: <a target="_blank" href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a><br><br>
 
     ]]></description>
 
