@@ -7,6 +7,10 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
 
 /**
  * @author pengqingsong
@@ -30,9 +34,53 @@ public class Setting implements Configurable {
     private JTextField tencentSecretKey;
     private JTextField tencentRegion;
     private JTextField tencentBucketName;
+    private JLabel aliyunSiteLabel;
+    private JLabel tencentCloudSiteLabel;
+    private JLabel qiniuSiteLabel;
     private String imageSaveLocation = "LOCAL";
 
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("demo");
+        frame.setContentPane(new Setting().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     public Setting() {
+        aliyunSiteLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.browse(new URI("https://www.aliyun.com/minisite/goods?userCode=j9pkgcae"));
+                } catch (Exception ex) {
+
+                }
+            }
+        });
+        tencentCloudSiteLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.browse(new URI("https://url.cn/5F2M7Np"));
+                } catch (Exception ex) {
+
+                }
+            }
+        });
+        qiniuSiteLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.browse(new URI("https://portal.qiniu.com/qvm/active?code=1381239317kEE2y"));
+                } catch (Exception ex) {
+
+                }
+            }
+        });
         saveImgPanel.addChangeListener(e -> {
             JTabbedPane source = (JTabbedPane) e.getSource();
             int selectedIndex = source.getSelectedIndex();
@@ -46,7 +94,7 @@ public class Setting implements Configurable {
             imageSaveLocation = "LOCAL";
         } else if (selectedIndex == 1) {
             imageSaveLocation = "QINIU";
-        } else if (selectedIndex == 2){
+        } else if (selectedIndex == 2) {
             imageSaveLocation = "ALIYUN";
         } else {
             imageSaveLocation = "TENCENT";
@@ -123,7 +171,7 @@ public class Setting implements Configurable {
         }
 
         String localRelativeDirPath = PropertiesComponent.getInstance().getValue(Constants.LOCAL_RELATIVE_DIR_PATH);
-        if(localRelativeDirPath == null || localRelativeDirPath.trim().length() == 0){
+        if (localRelativeDirPath == null || localRelativeDirPath.trim().length() == 0) {
             localRelativeDirPath = "images";
         }
         localRelativeDirPathField.setText(localRelativeDirPath);
