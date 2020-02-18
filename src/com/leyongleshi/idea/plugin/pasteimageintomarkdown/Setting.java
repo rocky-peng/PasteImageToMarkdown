@@ -37,6 +37,8 @@ public class Setting implements Configurable {
     private JLabel aliyunSiteLabel;
     private JLabel tencentCloudSiteLabel;
     private JLabel qiniuSiteLabel;
+    private JLabel gonggao;
+    private JLabel gonggaoLabel;
     private String imageSaveLocation = "LOCAL";
 
     public static void main(String[] args) {
@@ -86,6 +88,21 @@ public class Setting implements Configurable {
             int selectedIndex = source.getSelectedIndex();
             onImageSaveLocationChanged(selectedIndex);
         });
+
+        JLabel finalGonggao = this.gonggao;
+        JLabel finalGonggaoLable = this.gonggaoLabel;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String gonggao =  HttpRequestUtils.get("https://github.com/rocky-peng/PasteImageToMarkdown/releases/download/gonggao/gonggao.txt");
+                    gonggao = gonggao.trim();
+                    finalGonggaoLable.setText("注意：");
+                    finalGonggao.setText(gonggao);
+                }catch (Exception e){
+                }
+            }
+        }).start();
     }
 
 

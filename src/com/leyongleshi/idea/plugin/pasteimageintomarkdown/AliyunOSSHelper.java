@@ -3,6 +3,7 @@ package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
+import okhttp3.OkHttpClient;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -58,6 +59,10 @@ public class AliyunOSSHelper {
             throw new RuntimeException(e.getMessage(), e);
         }
         return upload(new ByteArrayInputStream(result.toByteArray()), filePathName);
+    }
+
+    public static void main(String[] args) {
+        System.out.println();
     }
 
 }
