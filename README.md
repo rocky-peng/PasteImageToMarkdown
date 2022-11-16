@@ -1,6 +1,10 @@
 # PasteImageToMarkdown
 
 ## 版本更新记录
+### v1.6.1
+1. 支持对当前文档的相对路径
+2. 本地存储文件夹的名称支持${filename}占位符
+
 ### v1.5.8
 1. 添加对腾讯云对象存储的支持
 
@@ -46,16 +50,17 @@
   
 ### 本地存储
 填写的路径是相对于工程目录
-![](http://img.ljd.leyongleshi.com/markdown/118043455692180.png)
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96496789716700.png)
+
 
 ### 七牛云存储
-![](http://img.ljd.leyongleshi.com/markdown/118192020648670.png)
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96532398067000.png)
 
 ### 阿里云存储
-![](http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png)
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96554701270300.png)
 
 ### 腾讯云存储
-![](http://paste-image-to-markdown-1259342648.cos.ap-chongqing.myqcloud.com/pasteimageintomarkdown/2020-01-18/21-40-50/122557287276705.png)
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96615298448400.png)
 
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest

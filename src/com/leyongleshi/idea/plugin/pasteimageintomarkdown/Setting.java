@@ -91,7 +91,7 @@ public class Setting implements Configurable {
 
         JLabel finalGonggao = this.gonggao;
         JLabel finalGonggaoLable = this.gonggaoLabel;
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -102,7 +102,7 @@ public class Setting implements Configurable {
                 }catch (Exception e){
                 }
             }
-        }).start();
+        }).start();*/
     }
 
 
