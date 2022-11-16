@@ -16,7 +16,6 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.SystemIndependent;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,6 +32,12 @@ public class PasteImageFromClipboard extends AnAction {
 
     public PasteImageFromClipboard(Map<Object, String> imagesFromClipboard) {
         this.imagesFromClipboard = imagesFromClipboard;
+    }
+
+    private static String genCdnFilePathAndName(String suffix) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd/");
+        Date now = new Date();
+        return "pasteimageintomarkdown/" + sdf.format(now) + System.nanoTime() + suffix;
     }
 
     @Override
@@ -62,9 +67,25 @@ public class PasteImageFromClipboard extends AnAction {
                 throw new RuntimeException("please set RELATIVE_DIRECTORY_PATH in settings");
             }
 
+            //获取当前文档的file对象
+            Document currentDoc = FileEditorManager.getInstance(ed.getProject()).getSelectedTextEditor().getDocument();
+            VirtualFile currentFile = FileDocumentManager.getInstance().getFile(currentDoc);
+            File curDocument = new File(currentFile.getPath());
+
+            //计算相对路径
+            String relativePath = "";
+            if (localRelativeDirPath.startsWith("/")) {
+                String projectFilePath = ed.getProject().getBasePath();
+                relativePath = projectFilePath;
+            } else {
+                relativePath = curDocument.getParentFile().getAbsolutePath();
+            }
+
+            //替换 ${filename} 占位符
+            localRelativeDirPath = replaceWithFilename(localRelativeDirPath, curDocument.getName());
+
             //save image to disk
-            @SystemIndependent String projectFilePath = ed.getProject().getBasePath();
-            File imageSaveDir = new File(projectFilePath, localRelativeDirPath);
+            File imageSaveDir = new File(relativePath, localRelativeDirPath);
             if (!imageSaveDir.exists() || !imageSaveDir.isDirectory()) {
                 if (!imageSaveDir.mkdirs()) {
                     throw new RuntimeException("cannot mkdir:" + imageSaveDir.getAbsolutePath());
@@ -94,16 +115,17 @@ public class PasteImageFromClipboard extends AnAction {
                 VirtualFile fileByPath = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(imgFile);
                 assert fileByPath != null;
 
-                //add file to vcs
-                AbstractVcs usedVcs = ProjectLevelVcsManager.getInstance(ed.getProject()).getVcsFor(fileByPath);
-                if (usedVcs != null && usedVcs.getCheckinEnvironment() != null) {
-                    usedVcs.getCheckinEnvironment().scheduleUnversionedFilesForAddition(Collections.singletonList(fileByPath));
-                }
+                /*try {
+                    //add file to vcs
+                    AbstractVcs usedVcs = ProjectLevelVcsManager.getInstance(ed.getProject()).getVcsFor(fileByPath);
+                    if (usedVcs != null && usedVcs.getCheckinEnvironment() != null) {
+                        usedVcs.getCheckinEnvironment().scheduleUnversionedFilesForAddition(Collections.singletonList(fileByPath));
+                    }
+                }catch (Throwable ex){
+
+                }*/
 
                 //calc the relative path between current editor file and imgFile
-                Document currentDoc = FileEditorManager.getInstance(ed.getProject()).getSelectedTextEditor().getDocument();
-                VirtualFile currentFile = FileDocumentManager.getInstance().getFile(currentDoc);
-                File curDocument = new File(currentFile.getPath());
                 String imgRelativeUrl = curDocument.getParentFile().toPath().relativize(imgFile.toPath()).toFile().toString().replace('\\', '/');
 
                 //insert img url to md file
@@ -182,7 +204,7 @@ public class PasteImageFromClipboard extends AnAction {
                     imgUrl = aliyunOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix));
                 } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = aliyunOSSHelper.upload(file,genCdnFilePathAndName(suffix));
+                    imgUrl = aliyunOSSHelper.upload(file, genCdnFilePathAndName(suffix));
                 } else {
                     throw new RuntimeException("something wrong");
                 }
@@ -220,7 +242,7 @@ public class PasteImageFromClipboard extends AnAction {
                     imgUrl = tencentOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix));
                 } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = tencentOSSHelper.upload(file,genCdnFilePathAndName(suffix));
+                    imgUrl = tencentOSSHelper.upload(file, genCdnFilePathAndName(suffix));
                 } else {
                     throw new RuntimeException("something wrong");
                 }
@@ -231,10 +253,12 @@ public class PasteImageFromClipboard extends AnAction {
         }
     }
 
-    private static String genCdnFilePathAndName(String suffix) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd/");
-        Date now = new Date();
-        return "pasteimageintomarkdown/" + sdf.format(now) + System.nanoTime() + suffix;
+    private String replaceWithFilename(String localRelativeDirPath, String filename) {
+        int lastDotIndex = filename.lastIndexOf(".");
+        if (lastDotIndex > 0) {
+            filename = filename.substring(0, lastDotIndex);
+        }
+        return localRelativeDirPath.replaceAll("\\$.*\\{.*filename.*\\}", filename);
     }
 
     private boolean isEmpty(String s) {

@@ -1,10 +1,10 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.5.9</version>
+    <version>1.6.1</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
-    <description><![CDATA[
+  <description><![CDATA[
     English description(中文描述在下方):<br><br>
 
     Insert the image of the clipboard into the markdown file.<br><br>
@@ -29,16 +29,16 @@
     You can always reach the newest version at: <a target="_blank" href="https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest">the newest version</a><br><br>
 
     The setting of relative dir(相对路径设置):<br>
-    <img src="http://img.ljd.leyongleshi.com/markdown/119760954894253.png"/><br><br>
+    <img src="http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/86615784677900.png"/><br><br>
 
     The setting of qiniu.com(七牛云设置)：<br>
-    <img src="http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-56-33/50988516589598.png"/><br><br>
+    <img src="http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/86576778932600.png"/><br><br>
 
     The setting of aliyun oss(阿里云设置)：<br>
-    <img src="http://img.ljd.leyongleshi.com/pasteimageintomarkdown/2020-01-16/19-54-46/50881806149784.png"/><br><br>
+    <img src="http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/86651590704300.png"/><br><br>
 
     The setting of tencent cloud oss(腾讯云设置)：<br>
-    <img src="http://paste-image-to-markdown-1259342648.cos.ap-chongqing.myqcloud.com/pasteimageintomarkdown/2020-01-18/21-40-50/122557287276705.png"/><br><br>
+    <img src="http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/86689786337800.png"/><br><br>
 
     <br><br>
 
@@ -68,7 +68,7 @@
 
     ]]></description>
 
-    <change-notes><![CDATA[
+  <change-notes><![CDATA[
       <ul>
         <li>Add tencent cloud oss support</li>
         <li>Support pasting image from website</li>
@@ -80,26 +80,29 @@
         <li>Paste multiple images from hard disk at one time</li>
         <li>Support saving image to relative dir</li>
         <li>Support uploading image to qiniu.com</li>
+        <li>Support relative path to current doc</li>
       </ul>
     ]]>
-    </change-notes>
+  </change-notes>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="171.0"/>
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html for description -->
+  <idea-version since-build="173.0"/>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products-->
-    <depends>com.intellij.modules.lang</depends>
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
 
-
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
         <editorActionHandler action="EditorPaste" implementationClass="com.leyongleshi.idea.plugin.pasteimageintomarkdown.PasteImageHandler" order="first"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable instance="com.leyongleshi.idea.plugin.pasteimageintomarkdown.Setting"/>
-    </extensions>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
 
 </idea-plugin>
