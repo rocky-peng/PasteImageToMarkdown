@@ -47,7 +47,7 @@
     安装完成后，请前往Setting->Other Settings->PasteImageIntoMarkdown填写七牛相关信息。<br><br>
     如若使用出现问题，欢迎发送邮件到 rocky.peng@qq.com 或者前往github提交issue。<br><br>
     github: <a href="https://github.com/rocky-peng/PasteImageToMarkdown">https://github.com/rocky-peng/PasteImageToMarkdown</a>
-  
+
 ### 本地存储
 填写的路径是相对于工程目录
 ![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96496789716700.png)
@@ -61,6 +61,24 @@
 
 ### 腾讯云存储
 ![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/96615298448400.png)
+
+
+## 本地调试运行
+采用的plugin sdk版本是：
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/97071339325500.png)
+
+可以通过安装下面这个版本的idea获得，同时需要安装jdk1.8
+>IntelliJ IDEA Community Edition 2017.3.7
+
+可以用高版本的idea打开这个插件项目，然后选择上面插件版本的sdk：
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/97184849500900.png)
+
+然后配置：
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/97281353972500.png)
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/97310801319100.png)
+
+然后可以正常的点击 运行 或者 debug
+![](http://cdn.justdopay.com/pasteimageintomarkdown/2022-11-16/97398431010700.png)
 
 
 [https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest]: https://github.com/rocky-peng/PasteImageToMarkdown/releases/latest
