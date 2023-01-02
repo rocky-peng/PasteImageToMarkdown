@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.leyongleshi.idea.plugin.pasteimageintomarkdown</id>
     <name>PasteImageIntoMarkdown</name>
-    <version>1.6.1</version>
+    <version>1.6.3</version>
     <vendor email="rocky.peng@qq.com" url="https://blog.csdn.net/wilsonpeng3">rocky.peng</vendor>
 
   <description><![CDATA[

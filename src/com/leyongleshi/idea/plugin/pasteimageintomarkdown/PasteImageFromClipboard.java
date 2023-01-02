@@ -126,7 +126,7 @@ public class PasteImageFromClipboard extends AnAction {
                 }*/
 
                 //calc the relative path between current editor file and imgFile
-                String imgRelativeUrl = curDocument.getParentFile().toPath().relativize(imgFile.toPath()).toFile().toString().replace('\\', '/');
+                String imgRelativeUrl = "./"+curDocument.getParentFile().toPath().relativize(imgFile.toPath()).toFile().toString().replace('\\', '/');
 
                 //insert img url to md file
                 insertImageElement(ed, imgRelativeUrl);
