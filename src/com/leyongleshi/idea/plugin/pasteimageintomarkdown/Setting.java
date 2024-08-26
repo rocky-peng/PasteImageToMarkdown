@@ -3,6 +3,7 @@ package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +40,7 @@ public class Setting implements Configurable {
     private JLabel qiniuSiteLabel;
     private JLabel gonggao;
     private JLabel gonggaoLabel;
+    private JRadioButton compressImg;
     private String imageSaveLocation = "LOCAL";
 
     public static void main(String[] args) {
@@ -139,6 +141,8 @@ public class Setting implements Configurable {
     @Override
     public void apply() throws ConfigurationException {
 
+        PropertiesComponent.getInstance().setValue(Constants.COMPRESS_IMAGE, compressImg.isSelected()?"1":"0");
+
         PropertiesComponent.getInstance().setValue(Constants.IMAGE_SAVE_LOCATION, imageSaveLocation);
 
         //local
@@ -166,6 +170,13 @@ public class Setting implements Configurable {
 
     @Override
     public void reset() {
+        String compressImgValue = PropertiesComponent.getInstance().getValue(Constants.COMPRESS_IMAGE);
+        if(StringUtils.isBlank(compressImgValue) || "0".equalsIgnoreCase(compressImgValue)){
+            compressImg.setSelected(false);
+        }else {
+            compressImg.setSelected(true);
+        }
+
         String imageSaveLocationValue = PropertiesComponent.getInstance().getValue(Constants.IMAGE_SAVE_LOCATION);
         if (imageSaveLocationValue == null || imageSaveLocationValue.trim().length() == 0) {
             imageSaveLocation = "LOCAL";

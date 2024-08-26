@@ -15,10 +15,12 @@ import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -47,6 +49,8 @@ public class PasteImageFromClipboard extends AnAction {
         if (ed == null) {
             return;
         }
+
+        boolean compressImgVal = "1".equalsIgnoreCase(PropertiesComponent.getInstance().getValue(Constants.COMPRESS_IMAGE));
 
         //读取存储路径
         String imageSaveLocationValue = PropertiesComponent.getInstance().getValue(Constants.IMAGE_SAVE_LOCATION);
@@ -99,11 +103,16 @@ public class PasteImageFromClipboard extends AnAction {
 
                 if (key instanceof BufferedImage) {
                     BufferedImage bufferedImage = (BufferedImage) key;
-                    ImageUtils.saveImage(bufferedImage, imgFile);
+                    ImageUtils.saveImage(bufferedImage, imgFile,compressImgVal);
                 } else if (key instanceof File) {
                     File file = (File) key;
                     try {
-                        FileUtils.copyFile(file, imgFile);
+                        //如果要压缩图片
+                        if (compressImgVal) {
+                            IOUtils.write(ImageUtils.compressImgFile(file), new FileOutputStream(imgFile));
+                        } else {
+                            FileUtils.copyFile(file, imgFile);
+                        }
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -164,10 +173,10 @@ public class PasteImageFromClipboard extends AnAction {
                 String imgUrl;
                 if (key instanceof BufferedImage) {
                     BufferedImage bufferedImage = (BufferedImage) key;
-                    imgUrl = qiniuHelper.upload(bufferedImage, genCdnFilePathAndName(suffix));
+                    imgUrl = qiniuHelper.upload(bufferedImage, genCdnFilePathAndName(suffix),compressImgVal);
                 } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = qiniuHelper.upload(file, genCdnFilePathAndName(suffix));
+                    imgUrl = qiniuHelper.upload(file, genCdnFilePathAndName(suffix),compressImgVal);
                 } else {
                     throw new RuntimeException("something wrong");
                 }
@@ -201,10 +210,10 @@ public class PasteImageFromClipboard extends AnAction {
                 String suffix = entry.getValue();
                 String imgUrl = "";
                 if (key instanceof BufferedImage) {
-                    imgUrl = aliyunOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix));
+                    imgUrl = aliyunOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix),compressImgVal);
                 } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = aliyunOSSHelper.upload(file, genCdnFilePathAndName(suffix));
+                    imgUrl = aliyunOSSHelper.upload(file, genCdnFilePathAndName(suffix),compressImgVal);
                 } else {
                     throw new RuntimeException("something wrong");
                 }
@@ -239,10 +248,10 @@ public class PasteImageFromClipboard extends AnAction {
                 String suffix = entry.getValue();
                 String imgUrl = "";
                 if (key instanceof BufferedImage) {
-                    imgUrl = tencentOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix));
+                    imgUrl = tencentOSSHelper.upload((BufferedImage) key, genCdnFilePathAndName(suffix),compressImgVal);
                 } else if (key instanceof File) {
                     File file = (File) key;
-                    imgUrl = tencentOSSHelper.upload(file, genCdnFilePathAndName(suffix));
+                    imgUrl = tencentOSSHelper.upload(file, genCdnFilePathAndName(suffix),compressImgVal);
                 } else {
                     throw new RuntimeException("something wrong");
                 }

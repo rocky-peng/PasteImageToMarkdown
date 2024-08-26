@@ -1,7 +1,6 @@
 package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 
 import com.qiniu.common.QiniuException;
-import com.qiniu.common.Region;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
@@ -73,8 +72,13 @@ public class QiniuHelper {
         return upToken;
     }
 
-    public String upload(File file, String fileName) {
+    public String upload(File file, String fileName, boolean compressImgVal) {
         RuntimeException ex = new RuntimeException("七牛图片上传失败[未知错误]");
+        if(compressImgVal){
+            byte[] bytes = ImageUtils.compressImgFile(file);
+            return upload(bytes,fileName);
+        }
+
         for (int i = 0; i < uploadRetryTimes; i++) {
             String token = upToken();
             try {
@@ -108,14 +112,18 @@ public class QiniuHelper {
         throw ex;
     }
 
-    public String upload(BufferedImage img, String fileName) {
+    public String upload(BufferedImage img, String fileName, boolean compressImgVal) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
             ImageIO.write(img, "PNG", result);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        return upload(result.toByteArray(), fileName);
+        byte[] bytes = result.toByteArray();
+        if(compressImgVal){
+            bytes = ImageUtils.compressImgFile(bytes);
+        }
+        return upload(bytes, fileName);
     }
 
     public String upload(InputStream fileIs, String fileName) {

@@ -32,8 +32,18 @@ public class TencentOSSHelper {
         this.bucketName = bucketName;
     }
 
-    public String upload(InputStream inputStream, String filePathName){
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, filePathName, inputStream, new ObjectMetadata());
+    public String upload(InputStream inputStream, String filePathName, boolean compressImgVal){
+        PutObjectRequest putObjectRequest;
+        if(compressImgVal){
+            try {
+                byte[] bytes = ImageUtils.compressImgFile(inputStream.readAllBytes());
+                putObjectRequest = new PutObjectRequest(bucketName, filePathName, new ByteArrayInputStream(bytes), new ObjectMetadata());
+            }catch (Exception e){
+                putObjectRequest = new PutObjectRequest(bucketName, filePathName, inputStream, new ObjectMetadata());
+            }
+        }else {
+            putObjectRequest = new PutObjectRequest(bucketName, filePathName, inputStream, new ObjectMetadata());
+        }
         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
         Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 100);
         URL url = cosClient.generatePresignedUrl(bucketName,filePathName, expiration);
@@ -42,21 +52,26 @@ public class TencentOSSHelper {
         return uriOutput;
     }
 
-    public String upload(File file, String filePathName) {
+    public String upload(File file, String filePathName, boolean compressImgVal) {
         try {
-            return upload(new FileInputStream(file), filePathName);
+            return upload(new FileInputStream(file), filePathName,compressImgVal);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    public String upload(BufferedImage image, String filePathName) {
+    public String upload(BufferedImage image, String filePathName, boolean compressImgVal) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "PNG", result);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        return upload(new ByteArrayInputStream(result.toByteArray()), filePathName);
+
+        byte[] bytes = result.toByteArray();
+        if(compressImgVal){
+            bytes = ImageUtils.compressImgFile(bytes);
+        }
+        return upload(new ByteArrayInputStream(bytes), filePathName, compressImgVal);
     }
 }

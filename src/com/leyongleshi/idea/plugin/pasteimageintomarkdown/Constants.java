@@ -11,6 +11,9 @@ public class Constants {
 
     public static final String LOCAL_RELATIVE_DIR_PATH = "local_relative_dir_path";
 
+    //是否压缩图片，0：不压缩  1压缩， 默认为0
+    public static final String COMPRESS_IMAGE = "0";
+
     //七牛
     public static final String QINIU_IMG_URL_PREFIX = "qiniu_img_url_prefix";
     public static final String QINIU_ACCESS_KEY = "qiniu_access_key";

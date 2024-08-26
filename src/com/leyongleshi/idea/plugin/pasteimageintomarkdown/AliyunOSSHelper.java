@@ -3,7 +3,6 @@ package com.leyongleshi.idea.plugin.pasteimageintomarkdown;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
-import okhttp3.OkHttpClient;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -32,33 +31,47 @@ public class AliyunOSSHelper {
         this.ossClient = (OSSClient) new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }
 
-    public String upload(InputStream ins, String filePathName) {
+    public String upload(InputStream ins, String filePathName, boolean compressImgVal) {
         if (filePathName.startsWith("/")) {
             filePathName = filePathName.substring(1);
         }
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, filePathName, ins);
+        PutObjectRequest putObjectRequest;
+        if(compressImgVal){
+            try {
+                byte[] bytes = ImageUtils.compressImgFile(ins.readAllBytes());
+                putObjectRequest = new PutObjectRequest(bucketName, filePathName, new ByteArrayInputStream(bytes));
+            }catch (Exception e){
+                putObjectRequest = new PutObjectRequest(bucketName, filePathName, ins);
+            }
+        }else {
+            putObjectRequest = new PutObjectRequest(bucketName, filePathName, ins);
+        }
         ossClient.putObject(putObjectRequest);
         Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 100);
         URL url = ossClient.generatePresignedUrl(bucketName, filePathName, expiration);
         return url.toString();
     }
 
-    public String upload(File file, String filePathName) {
+    public String upload(File file, String filePathName, boolean compressImgVal) {
         try {
-            return upload(new FileInputStream(file), filePathName);
+            return upload(new FileInputStream(file), filePathName,compressImgVal);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    public String upload(BufferedImage image, String filePathName) {
+    public String upload(BufferedImage image, String filePathName, boolean compressImgVal) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "PNG", result);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        return upload(new ByteArrayInputStream(result.toByteArray()), filePathName);
+        byte[] bytes = result.toByteArray();
+        if(compressImgVal){
+            bytes = ImageUtils.compressImgFile(bytes);
+        }
+        return upload(new ByteArrayInputStream(bytes), filePathName, compressImgVal);
     }
 
     public static void main(String[] args) {
